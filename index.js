@@ -1,7 +1,11 @@
 const redux = require('redux');
+const reduxLogger = require('redux-logger');
 
 const createStore = redux.createStore;
 const combineReducers = redux.combineReducers;
+const applyMiddleware = redux.applyMiddleware;
+const logger = reduxLogger.createLogger;
+
 
 // State
 const initialStateOfCake = {
@@ -61,12 +65,12 @@ rootReducers = combineReducers({
     cake: reducerCake,
     iceCream: reducerIceCream
 })
-const store = createStore(rootReducers);
+const store = createStore(rootReducers, applyMiddleware(logger()));
 
 // subscribe(listener)​: Adds a change listener. 
 // It will be called any time an action is dispatched, and some part of the state tree may potentially have changed. 
 // You may then call getState() to read the current state tree inside the callback.
-const unsubscribe = store.subscribe(() => {console.log('Subscribe function: ', store.getState())});
+const unsubscribe = store.subscribe(() => {});
 
 store.dispatch(buyCake(1));
 store.dispatch(buyCake(1));
