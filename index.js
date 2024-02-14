@@ -33,17 +33,18 @@ const reducer = (state = initialState, action) => {
 const store = createStore(reducer);
 console.log('Initial State: ', initialState);
 
-store.dispatch(buyCake(1));
-console.log('Current State: ', store.getState());
+// subscribe(listener)​: Adds a change listener. 
+// It will be called any time an action is dispatched, and some part of the state tree may potentially have changed. 
+// You may then call getState() to read the current state tree inside the callback.
+const unsubscribe = store.subscribe(() => {console.log('Subscribe function: ', store.getState())});
 
 store.dispatch(buyCake(1));
-console.log('Current State: ', store.getState());
-
+store.dispatch(buyCake(1));
 store.dispatch(buyCake(3));
-console.log('Current State: ', store.getState());
-
 store.dispatch(buyCake(1));
 console.log('Current State: ', store.getState());
+
+unsubscribe();
 
 store.dispatch(buyCake(1));
 console.log('Current State: ', store.getState());
